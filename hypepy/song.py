@@ -1,7 +1,9 @@
 import os
+import time
 
 from hypem_urls import *
 from hypepy import session
+from hypepy.blog import Blog
 from mutagen.mp3 import MP3
 from mutagen.id3 import ID3, APIC, TIT2, TPE1
 from bs4 import BeautifulSoup
@@ -27,7 +29,7 @@ class Song(object):
         self._mp3 = None
         self._loved_count = None
         self._repost_count = None
-        self._posts = []
+        self._posts = None
 
     def download_url(self):
         if not self._download_url:
@@ -79,6 +81,24 @@ class Song(object):
     def loved_count(self):
         self._get_loved_repost_count()
         return self._loved_count
+
+    def posts(self):
+        if self._posts is None:
+            req = session.get(HYPEM_POSTS_URL.format(self.id_, int(time.time())))
+            soup = BeautifulSoup(req.text)
+
+            self._posts = []
+            for post in soup.find_all('p', class_='more-excerpts'):
+                blog = post.find('a', class_='blog-fav-off')
+
+                name = blog.get_text(strip=True)
+                url = blog['href']
+                id_ = url.split('/')[-1]
+                external_post_url = post.find('a', class_='readpost')['href']
+
+                self._posts.append(Blog(id_, name, url, external_post_url))
+
+        return self._posts
 
     def _get_loved_repost_count(self):
         if not self._loved_count or not self._repost_count:
