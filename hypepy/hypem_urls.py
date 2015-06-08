@@ -1,0 +1,4 @@
+HYPEM_AUTHORITY_URL = 'http://hypem.com/'
+
+HYPEM_SERVE_PATH = 'serve/source/{}/{}'
+HYPEM_SERVE_URL = HYPEM_AUTHORITY_URL + HYPEM_SERVE_PATH
