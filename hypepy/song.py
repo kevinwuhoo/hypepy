@@ -109,8 +109,15 @@ class Song(object):
             loved_count = loved_count.lstrip('Favorited by ').rstrip(' others')
             self._loved_count = int(loved_count)
 
-            repost_count = soup.find('a', class_='toggle-reposts').get_text(strip=True)
-            repost_count = repost_count.lstrip('Posted by ').rstrip(' blogs')
+            repost_count = soup.find('a', class_='toggle-reposts')
+            # if there isn't more than one post about this song, this dom
+            # element doesnt exist -- i think
+            if repost_count:
+                repost_count = repost_count.get_text(strip=True)
+                repost_count = repost_count.lstrip('Posted by ').rstrip(' blogs')
+            else:
+                repost_count = 1
+
             self._repost_count = int(repost_count)
 
     def __str__(self):

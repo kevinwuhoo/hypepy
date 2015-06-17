@@ -8,10 +8,10 @@ from bs4 import BeautifulSoup
 
 class Section(object):
 
-    def __init__(self, page_name, page_path):
-        self.page_name = page_name
+    def __init__(self, page_path, page_limit=3):
         self.page_path = page_path
         self.page_num = 0
+        self.page_limit = page_limit
 
     def __iter__(self):
         return self
@@ -21,7 +21,7 @@ class Section(object):
         return self
 
     def next(self):
-        if self.page_num == 3:
+        if self.page_num == self.page_limit:
             raise StopIteration()
         else:
             self.page_num += 1
