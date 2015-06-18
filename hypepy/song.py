@@ -72,7 +72,7 @@ class Song(object):
         )
         audio.save()
 
-        return True
+        return filename
 
     def repost_count(self):
         self._get_loved_repost_count()
@@ -92,7 +92,7 @@ class Song(object):
                 blog = post.find('a', class_='blog-fav-off')
 
                 name = blog.get_text(strip=True)
-                url = blog['href']
+                url = HYPEM_AUTHORITY_URL + blog['href'].lstrip('/')
                 id_ = url.split('/')[-1]
                 external_post_url = post.find('a', class_='readpost')['href']
 

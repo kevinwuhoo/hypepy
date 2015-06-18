@@ -25,7 +25,6 @@ class Section(object):
             raise StopIteration()
         else:
             self.page_num += 1
-            print(self.page_num)
             return self.get_page()
 
     def get_page(self):
