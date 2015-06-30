@@ -84,19 +84,35 @@ class Song(object):
 
     def posts(self):
         if self._posts is None:
-            req = session.get(HYPEM_POSTS_URL.format(self.id_, int(time.time())))
-            soup = BeautifulSoup(req.text)
 
+            skip = 0
             self._posts = []
-            for post in soup.find_all('p', class_='more-excerpts'):
-                blog = post.find('a', class_='blog-fav-off')
 
-                name = blog.get_text(strip=True)
-                url = HYPEM_AUTHORITY_URL + blog['href'].lstrip('/')
-                id_ = url.split('/')[-1]
-                external_post_url = post.find('a', class_='readpost')['href']
+            # iterate through all pages until no results left
+            while True:
+                req = session.get(HYPEM_POSTS_URL.format(
+                    id=self.id_,
+                    ts=int(time.time()),
+                    skip=skip
+                ))
+                soup = BeautifulSoup(req.text)
 
-                self._posts.append(Blog(id_, name, url, external_post_url))
+                found_posts = soup.find_all('p', class_='more-excerpts')
+                # if no posts on this page, then break
+                if len(found_posts) == 0:
+                    break
+
+                for post in found_posts:
+                    blog = post.find('a', class_='blog-fav-off')
+
+                    name = blog.get_text(strip=True)
+                    url = HYPEM_AUTHORITY_URL + blog['href'].lstrip('/')
+                    id_ = url.split('/')[-1]
+                    external_post_url = post.find('a', class_='readpost')['href']
+
+                    self._posts.append(Blog(id_, name, url, external_post_url))
+
+                skip += 10
 
         return self._posts
 
