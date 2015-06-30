@@ -1,6 +1,6 @@
 import time
 import json
-from hypem_urls import *
+from .hypem_urls import *
 from hypepy import session
 from hypepy.song import Song
 from bs4 import BeautifulSoup
@@ -18,7 +18,11 @@ class Section(object):
 
     # Python 3
     def __next__(self):
-        return self
+        if self.page_num == self.page_limit:
+            raise StopIteration()
+        else:
+            self.page_num += 1
+            return self.get_page()
 
     def next(self):
         if self.page_num == self.page_limit:

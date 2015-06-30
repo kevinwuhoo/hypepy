@@ -1,7 +1,7 @@
 import os
 import time
 
-from hypem_urls import *
+from .hypem_urls import *
 from hypepy import session
 from hypepy.blog import Blog
 from mutagen.mp3 import MP3
@@ -51,15 +51,16 @@ class Song(object):
         if not self._mp3:
             self._mp3 = session.get(self.download_url()).content
 
-        open(filename, 'w').write(self._mp3)
+        with open(filename, 'wb') as f:
+            f.write(self._mp3)
 
         # TODO maybe do this manipulation in memory since song is stored
         cover_img = session.get(self.thumb_url_large).content
         audio = MP3(filename, ID3=ID3)
         audio.add_tags()
 
-        audio['TIT2'] = TIT2(encoding=3, text=unicode(self.title))
-        audio['TPE1'] = TPE1(encoding=3, text=unicode(self.artist))
+        audio['TIT2'] = TIT2(encoding=3, text=self.title)
+        audio['TPE1'] = TPE1(encoding=3, text=self.artist)
 
         audio.tags.add(
             APIC(
