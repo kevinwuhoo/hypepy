@@ -7,6 +7,7 @@ from hypepy.blog import Blog
 from mutagen.mp3 import MP3
 from mutagen.id3 import ID3, APIC, TIT2, TPE1
 from bs4 import BeautifulSoup
+import requests
 
 
 class Song(object):
@@ -46,10 +47,16 @@ class Song(object):
 
     def download(self, path):
 
+        if not self.download_url():
+            return None
+
         filename = '{}/{} - {}.mp3'.format(path, self.artist, self.title)
 
         if not self._mp3:
-            self._mp3 = session.get(self.download_url()).content
+            mp3_request = session.get(self.download_url())
+
+            if mp3_request.status_code == requests.codes.ok:
+                self._mp3 = mp3_request.content
 
         with open(filename, 'wb') as f:
             f.write(self._mp3)
