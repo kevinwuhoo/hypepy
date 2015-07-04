@@ -1,4 +1,6 @@
-![](https://travis-ci.org/kevinwuhoo/hypepy.svg?branch=master)
+# Hypepy ![](https://travis-ci.org/kevinwuhoo/hypepy.svg?branch=master)
+
+Hypepy (pronounced [hyphy](https://en.wikipedia.org/wiki/Hyphy)) is an python wrapper around [Hype Machine](http://hypem.com/). It supports python 2.7 and 3.3+.
 
 ## TODO
 * [ ] Support for other sections
