@@ -13,9 +13,10 @@ Hypepy (pronounced [hyphy](https://en.wikipedia.org/wiki/Hyphy)) is an python wr
   * [ ] Premiere
   * [ ] Stack
 * [ ] User Class
-  * [ ] Feed
-  * [ ] Favorites
-  * [ ] History
+  * [x] Feed
+  * [x] Favorites
+  * [x] History
+  * [x] Obsessions
   * [ ] Friends
   * [ ] Followers
   * [ ] Followed Blogs
