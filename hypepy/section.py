@@ -59,14 +59,22 @@ class Section(object):
             id_ = page_track['id']
             title = dom_track.find('a', class_='track')
             artist = dom_track.find('a', class_='artist')
-            thumb = dom_track.find('a', class_='thumb')['style']
+
+            thumb_anchor_tag = dom_track.find('a', class_='thumb')
+            # sometimes there's no thumbnail
+            if thumb_anchor_tag:
+                thumb_style = thumb_anchor_tag['style']
+
             ts = page_track['ts']
             key = page_track['key']
             track_url = title['href']
 
             title = title['title'].split(' - ')[0]
             artist = artist['title'].split(' - ')[0]
-            thumb_url = thumb.split('(')[1].split(')')[0]
+
+            # sometimes there's no thumbnail
+            if thumb_anchor_tag:
+                thumb_url = thumb_style.split('(')[1].split(')')[0]
 
             tracks.append(Song(id_, title, artist, thumb_url, ts, key, track_url))
 
