@@ -13,11 +13,13 @@ Hypepy (pronounced [hyphy](https://en.wikipedia.org/wiki/Hyphy)) is an python wr
   * [ ] Premiere
   * [ ] Stack
 * [ ] User Class
-  * [ ] Favorites
   * [ ] Feed
+  * [ ] Favorites
+  * [ ] History
+  * [ ] Friends
+  * [ ] Followers
   * [ ] Followed Blogs
   * [ ] Followed Artists
-  * [ ] Friends/Followed
 * [ ] Refresh a song's hearts, posts, and download link. Maybe kwarg that's "refresh"?
 * [ ] Get genres from songs
 * [ ] Better blog support
