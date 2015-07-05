@@ -1,4 +1,5 @@
 from .section import Section
+from .user import User
 import datetime
 
 
@@ -40,3 +41,9 @@ class HypeM(object):
     @staticmethod
     def twitter():
         return Section('twitter/popular', page_limit=5)
+
+
+    # User Profile
+    @staticmethod
+    def user(username):
+        return User(username)

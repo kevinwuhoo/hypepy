@@ -35,6 +35,11 @@ class Section(object):
         # Get track data required for downloading song
         url = "{}{}/{}".format(HYPEM_AUTHORITY_URL, self.page_path, self.page_num)
         req = session.get(url, params={'ts': int(time.time())})
+
+        # if no page limit, 404 means we've hit the last page
+        if self.page_limit is None and req.status_code == 404:
+            raise StopIteration()
+
         soup = BeautifulSoup(req.text)
 
         page_track_data = soup.find(id='displayList-data').text
@@ -60,5 +65,6 @@ class Section(object):
             thumb_url = thumb.split('(')[1].split(')')[0]
 
             tracks.append(Song(id_, title, artist, thumb_url, ts, key, track_url))
+
 
         return tracks
