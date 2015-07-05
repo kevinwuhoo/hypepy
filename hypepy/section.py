@@ -49,6 +49,10 @@ class Section(object):
         for dom_track, page_track in zip(soup.find_all(class_='section-track'),
                                          page_track_data):
 
+            # I have no idea what this is but its not a song
+            if 'section-placeholder' in dom_track['class']:
+                continue
+
             if dom_track['data-itemid'] != page_track['id']:
                 raise('u wot these should be the same')
 
