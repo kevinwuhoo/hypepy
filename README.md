@@ -17,8 +17,7 @@ Hypepy (pronounced [hyphy](https://en.wikipedia.org/wiki/Hyphy)) is an python wr
   * [x] Favorites
   * [x] History
   * [x] Obsessions
-  * [ ] Friends
-  * [ ] Followers
+  * [x] Friends
   * [ ] Followed Blogs
   * [ ] Followed Artists
 * [ ] Refresh a song's hearts, posts, and download link. Maybe kwarg that's "refresh"?
